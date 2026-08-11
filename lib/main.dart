@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 import 'core/supabase/supabase_client.dart';
 
+// Section 1.2 brand colors — placeholder-level only, expect this to change
+// once real theming work happens.
+const _navy = Color(0xFF1B2F5E);
+const _brandRed = Color(0xFFC0392B);
+const _appBg = Color(0xFFF2F2F0);
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initSupabase();
@@ -15,7 +21,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PNCHD',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        colorScheme: .fromSeed(seedColor: _navy, secondary: _brandRed),
+        scaffoldBackgroundColor: _appBg,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: _navy,
+          foregroundColor: Colors.white,
+        ),
+      ),
       home: const _SupabaseStatusPage(),
     );
   }
