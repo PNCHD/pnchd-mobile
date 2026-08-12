@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/widgets/placeholder_screen.dart';
+
 class AccountSettingsScreen extends StatelessWidget {
   const AccountSettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Account')),
-      body: const Center(child: Text('Account settings — placeholder')),
-    );
-  }
+  Widget build(BuildContext context) => const PlaceholderScreen(title: 'Account');
 }

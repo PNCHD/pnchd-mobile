@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/placeholder_screen.dart';
+
 class ProjectsScreen extends StatelessWidget {
   const ProjectsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Projects')),
-      body: const Center(child: Text('Projects — placeholder')),
-    );
-  }
+  Widget build(BuildContext context) => const PlaceholderScreen(title: 'Projects');
 }
