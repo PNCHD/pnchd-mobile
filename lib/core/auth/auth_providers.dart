@@ -2,12 +2,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../data/auth_repository.dart';
+import '../data/organization_repository.dart';
 import '../data/profile_repository.dart';
 import '../models/profile.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepository());
 
 final profileRepositoryProvider = Provider((ref) => ProfileRepository());
+
+final organizationRepositoryProvider = Provider((ref) => OrganizationRepository());
 
 /// Fires on session restore, sign-in, sign-out, and token refresh.
 final authStateChangesProvider = StreamProvider<AuthState>((ref) {

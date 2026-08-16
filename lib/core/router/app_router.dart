@@ -8,6 +8,7 @@ import '../../features/document_signing/document_signing_screen.dart';
 import '../../features/driver_view/driver_home_screen.dart';
 import '../../features/fleet_tracking/fleet_tracking_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
+import '../../features/onboarding/org_setup_screen.dart';
 import '../../features/projects/projects_screen.dart';
 import '../../features/proposals_invoicing/proposals_invoicing_screen.dart';
 import '../../features/scheduling/scheduling_screen.dart';
@@ -49,6 +50,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/onboarding',
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/welcome',
+        builder: (context, state) => const OrgSetupScreen(),
       ),
       GoRoute(
         path: '/client',

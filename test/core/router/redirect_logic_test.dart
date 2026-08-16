@@ -5,6 +5,9 @@ import 'package:pnchd_mobile/core/router/redirect_logic.dart';
 const _owner = Profile(id: 'u1', role: ProfileRole.owner, organizationId: 'o1');
 const _client = Profile(id: 'u2', role: ProfileRole.client, organizationId: 'o1');
 const _driver = Profile(id: 'u3', role: ProfileRole.driver, organizationId: 'o1');
+const _unattachedOwner = Profile(id: 'u4', role: ProfileRole.owner);
+const _unattachedClient = Profile(id: 'u5', role: ProfileRole.client);
+const _admin = Profile(id: 'u6', role: ProfileRole.platformAdmin);
 
 void main() {
   group('signed out', () {
@@ -43,6 +46,37 @@ void main() {
 
     test('driver on /driver stays put', () {
       expect(resolveRedirect(_driver, '/driver'), isNull);
+    });
+  });
+
+  group('organization setup', () {
+    test('contractor with no org is sent to setup', () {
+      expect(resolveRedirect(_unattachedOwner, '/dashboard'), '/welcome');
+      expect(resolveRedirect(_unattachedOwner, '/projects'), '/welcome');
+    });
+
+    test('setup page itself is allowed, avoiding a redirect loop', () {
+      expect(resolveRedirect(_unattachedOwner, '/welcome'), isNull);
+    });
+
+    test('contractor with an org is taken off the setup page', () {
+      expect(resolveRedirect(_owner, '/welcome'), '/dashboard');
+    });
+
+    test('client with no org goes to their shell, not setup', () {
+      // Clients never create organizations — the contractor invites them.
+      expect(resolveRedirect(_unattachedClient, '/dashboard'), '/client');
+      expect(resolveRedirect(_unattachedClient, '/client'), isNull);
+    });
+
+    test('platform_admin is exempt, having no org by design', () {
+      expect(needsOrganizationSetup(_admin), isFalse);
+      expect(resolveRedirect(_admin, '/dashboard'), isNull);
+    });
+
+    test('needsOrganizationSetup tracks whether an org is attached', () {
+      expect(needsOrganizationSetup(_unattachedOwner), isTrue);
+      expect(needsOrganizationSetup(_owner), isFalse);
     });
   });
 
